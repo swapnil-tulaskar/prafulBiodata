@@ -221,7 +221,7 @@ function ProfilePage() {
               hope to bring into a marriage.
             </p>
             <p className="editorial-copy mt-5">
-              Outside the clinic, I enjoy reading, photography, fitness, cooking, travel, and listening to music. I
+              Outside the clinic, I enjoy reading, photography, Watching Movies,travel, and listening to music. I
               value warmth, intellectual curiosity, and a home built on mutual respect.
             </p>
             <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 md:mt-10 md:gap-x-8 md:gap-y-5">
