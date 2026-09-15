@@ -369,7 +369,7 @@ function ProfilePage() {
           <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:px-10 md:py-20">
             <p className="section-kicker">(e) — Beyond medicine</p>
             <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 font-display text-2xl italic text-primary sm:text-3xl md:gap-x-8 md:gap-y-4 md:text-5xl">
-              {["Reading", "Photography", "Fitness", "Cooking", "Travel", "Listening to music"].map((i) => (
+              {["Reading", "Photography", "Watching Movies", "Listening to music"].map((i) => (
                 <span key={i} className="border-b border-gold/35 pb-1">{i}</span>
               ))}
             </div>
