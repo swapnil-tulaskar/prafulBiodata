@@ -20,18 +20,18 @@ import {
 } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import heroImage from "../assets/praful-hero.jpg";
-import kundliImage from "../assets/kundli.jpg";
+import heroImage from "../assets/praful-hero.webp";
+import kundliImage from "../assets/kundli.webp";
 
 // 👇 only Father and Mother have photos
-import fatherImg from "../assets/father.jpg";
-import motherImg from "../assets/mother.jpg";
+import fatherImg from "../assets/father.webp";
+import motherImg from "../assets/mother.webp";
 
 // 👇 groom photos
-import groom1 from "../assets/groom-1.jpg";
-import groom2 from "../assets/groom-2.jpg";
-import groom3 from "../assets/groom-3.jpg";
-import groom4 from "../assets/groom-4.jpg";
+import groom1 from "../assets/groom-1.webp";
+import groom2 from "../assets/groom-2.webp";
+import groom3 from "../assets/groom-3.webp";
+import groom4 from "../assets/groom-4.webp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -42,6 +42,10 @@ export const Route = createFileRoute("/")({
       { property: "og:description", content: "A doctor, a devoted family man, and a thoughtful partner in search of a shared life." },
       { property: "og:type", content: "profile" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+    // 👇 Preload hero image so it starts downloading before React mounts
+    links: [
+      { rel: "preload", as: "image", href: heroImage, fetchpriority: "high" },
     ],
   }),
   component: ProfilePage,
@@ -158,6 +162,8 @@ function ProfilePage() {
               alt="Dr. Praful Tulaskar in a cream bandhgala"
               width={1920}
               height={1088}
+              fetchPriority="high"
+              decoding="async"
               className="h-full w-full object-cover object-[68%_center]"
             />
           </button>
@@ -279,7 +285,10 @@ function ProfilePage() {
                     <img
                       src={person.src}
                       alt={`${person.name}, ${person.relation}`}
+                      width={800}
+                      height={1000}
                       loading="lazy"
+                      decoding="async"
                       className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </button>
@@ -355,6 +364,7 @@ function ProfilePage() {
                 width={1024}
                 height={1280}
                 loading="lazy"
+                decoding="async"
                 className="mx-auto aspect-[4/5] max-h-[520px] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.015] md:max-h-[620px]"
               />
               <span className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-primary-foreground md:bottom-7">
@@ -400,6 +410,7 @@ function ProfilePage() {
                   src={item.src}
                   alt={item.alt}
                   loading="lazy"
+                  decoding="async"
                   className="block h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               </button>
@@ -416,7 +427,7 @@ function ProfilePage() {
               <span className="italic">let's begin</span>
             </h2>
             <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-7">
-             Reach the <strong>Tulaskar Family</strong> through our designated contact. Personal details are shared privately and respectfully.
+              Reach the <strong className="font-bold text-gray-900">Tulaskar Family</strong> through our designated contact. Personal details are shared privately and respectfully.
             </p>
             <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-3 md:mt-10 md:gap-4">
               {contacts.map((person) => (
@@ -437,7 +448,6 @@ function ProfilePage() {
               <MapPin size={13} className="mr-1 inline" /> Basad Dist. Burahanpur, Madhya Pradesh
             </p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 md:mt-9 md:gap-3">
-              
               <button type="button" onClick={() => setShareOpen(true)} className="action-outline">
                 <Share2 size={14} /> Share profile
               </button>
@@ -690,6 +700,7 @@ function ImageViewer({ items, index, setIndex, onClose }: {
         <img
           src={item.src}
           alt={item.alt}
+          decoding="async"
           className="max-h-[calc(100vh-7rem)] max-w-full select-none object-contain transition-transform duration-200 md:max-h-[calc(100vh-8rem)]"
           style={{ transform: `scale(${zoom})` }}
           draggable={false}
