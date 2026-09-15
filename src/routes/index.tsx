@@ -416,8 +416,7 @@ function ProfilePage() {
               <span className="italic">let's begin</span>
             </h2>
             <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-7">
-              Reach the Tulaskar family through our designated contact. Personal details are shared privately and
-              respectfully.
+             Reach the <strong>Tulaskar Family</strong> through our designated contact. Personal details are shared privately and respectfully.
             </p>
             <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-3 md:mt-10 md:gap-4">
               {contacts.map((person) => (
