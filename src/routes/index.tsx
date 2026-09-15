@@ -438,9 +438,7 @@ function ProfilePage() {
               <MapPin size={13} className="mr-1 inline" /> Basad Dist. Burahanpur, Madhya Pradesh
             </p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 md:mt-9 md:gap-3">
-              <a href="mailto:tulaskarfamily@gmail.com" className="action-dark">
-                <Mail size={14} /> Send email
-              </a>
+              
               <button type="button" onClick={() => setShareOpen(true)} className="action-outline">
                 <Share2 size={14} /> Share profile
               </button>
