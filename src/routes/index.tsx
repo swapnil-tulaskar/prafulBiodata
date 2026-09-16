@@ -482,9 +482,20 @@ function ProfilePage() {
     </p>
     <span className="h-px w-8 bg-gold/40 md:w-12" />
   </div>
+ <div className="flex items-center justify-center gap-4 border-b border-gold/30 pb-2">
   <p className="font-script text-3xl leading-tight text-gold md:text-4xl">
     Swapnil Tulaskar
   </p>
+  <a
+    href="tel:+919399345549"
+    aria-label="Call Swapnil Tulaskar"
+    className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold text-gold transition-colors hover:bg-gold hover:text-black"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.4 11.4 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.57 1 1 0 0 1-.25 1.02l-2.2 2.2z"/>
+    </svg>
+  </a>
+</div>
 </div>
           </div>
         </section>
