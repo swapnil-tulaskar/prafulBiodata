@@ -143,7 +143,7 @@ function ProfilePage() {
           <div className="pointer-events-none relative mx-auto flex h-full max-w-7xl items-end px-5 pb-14 sm:px-6 md:px-10 md:pb-24">
             <div className="max-w-2xl animate-rise">
               <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.25em] text-gold sm:text-[10px] md:mb-5 md:text-[11px] md:tracking-[0.3em]">
-                वैवाहिक प्रोफाइल · बसाड, जि. बुऱ्हाणपूर, मध्य प्रदेश
+              
               </p>
               <h1 className="font-display text-5xl leading-[0.9] text-paper sm:text-6xl md:text-6xl md:leading-[0.88]">
                 डॉ. प्रफुल
