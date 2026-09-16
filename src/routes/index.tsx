@@ -50,14 +50,14 @@ type ViewerItem = { src: string; alt: string; label: string };
 
 // 👇 Parents (name + relation + detail only, no photo)
 const parents = [
-  { name: "श्री. सुभाष तुळसकर", relation: "पिता", detail: "सेवानिवृत्त सरकारी शिक्षक" },
-  { name: "श्रीमती. अनिता तुळसकर", relation: "माता", detail: "आंगणवाडी शिक्षिका" },
+  { name: "श्री. सुभाष तुळसकर", relation: "पिता", detail: "Retired Government Teacher" },
+  { name: "श्रीमती. अनिता तुळसकर", relation: "माता", detail: "Anganwadi Teacher" },
 ];
 
 // 👇 Siblings (name + relation + detail only, no photo)
 const relatives = [
-  { name: "श्री. स्वप्निल तुळसकर", relation: "मोठा भाऊ", detail: "बी.ई. इंजिनियर" },
-  { name: "श्रीमती. माधुरी तुळसकर", relation: "वहिनी", detail: "एम.एससी. सहाय्यक प्राध्यापिका" },
+  { name: "श्री. स्वप्निल तुळसकर", relation: "मोठा भाऊ", detail: "B.E. Engineer" },
+  { name: "श्रीमती. माधुरी तुळसकर", relation: "वहिनी", detail: "M.Sc. Assistant Professor" },
 ];
 
 // Gallery viewer list — ONLY groom photos
@@ -174,18 +174,18 @@ function ProfilePage() {
         <section aria-label="त्वरित प्रोफाइल सारांश" className="border-y border-border bg-secondary/70">
           <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 gap-y-4 px-5 py-5 font-mono text-[16px] uppercase tracking-[0.12em] sm:grid-cols-3 sm:px-6 md:grid-cols-6 md:gap-y-5 md:px-10 md:py-6">
             {[
-              ["वय", "२८ वर्षे"],
-              ["उंची", "५'९\""],
-              ["शिक्षण", "बी.एच.एम.एस., डी.फार्मा"],
-              ["व्यवसाय", "स्वतःचा क्लिनिक"],
-              ["स्थान", "बसाड  जि. बुऱ्हाणपूर"],
-              ["वैवाहिक स्थिती", "अविवाहित"],
-            ].map(([label, value]) => (
-              <div key={label} className="border-l border-border pl-3 md:pl-4">
-                <p className="text-muted-foreground">{label}</p>
-                <p className="mt-1 text-foreground">{value}</p>
-              </div>
-            ))}
+  ["वय", "२८ वर्षे"],
+  ["उंची", "५'९\""],
+  ["शिक्षण", "B.H.M.S., D.Pharmacy"],
+  ["व्यवसाय", "स्वतःचा क्लिनिक"],
+  ["स्थान", "बसाड जि. बुऱ्हाणपूर"],
+  ["वैवाहिक स्थिती", "अविवाहित"],
+].map(([label, value]) => (
+  <div key={label} className="min-w-0 border-l border-border pl-3 md:pl-4">
+    <p className="text-muted-foreground">{label}</p>
+    <p className="mt-1 break-words leading-snug text-foreground">{value}</p>
+  </div>
+))}
           </div>
         </section>
 
@@ -199,10 +199,10 @@ function ProfilePage() {
           </div>
           <div className="md:col-span-7 md:col-start-6">
             <p className="editorial-copy">
-              मी बी.एच.एम.एस. डॉक्टर आहे आणि नाशिराबाद येथे माझे स्वतःचे क्लिनिक{" "}
+              मी <Bold>डॉ. प्रफुल तुळसकर</Bold> नाशिराबाद येथे माझे स्वतःचे क्लिनिक{" "}
               <Bold>स्वप्नपूर्ती डे-केअर सेंटर</Bold>
-              {" "}चालवतो. माझ्या व्यवसायाने मला केवळ वैद्यकीय ज्ञान दिले नाही, तर जबाबदारी, संयम
-              आणि स्पष्ट निर्णय घेण्याची सवयही लावली. मी स्वभावाने शांत, प्रामाणिक आणि सहकार्य करणारा आहे.
+              {" "}मध्ये रुग्णसेवा करतो.माझ्यासाठी प्रत्येक रुग्ण हा एक कुटुंब आहे. त्यांची सेवा करणे
+                  हेच माझे ध्येय. मी स्वभावाने शांत, प्रामाणिक आणि सहकार्य करणारा आहे.
               जीवनसाथीकडून मला परस्पर आदर, स्पष्ट संवाद आणि एकमेकांना साथ देण्याची तयारी यांची अपेक्षा आहे.
             </p>
             <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 md:mt-10 md:gap-x-8 md:gap-y-5">
@@ -232,7 +232,7 @@ function ProfilePage() {
             </div>
             <div className="space-y-0 md:col-span-7 md:col-start-6">
               <Timeline title="क्लिनिक" detail="स्वप्नपूर्ती डे-केअर सेंटर · नेपानगर रोड, नाशिराबाद" />
-              <Timeline title="बी.एच.एम.एस., डी.फार्मा" detail="बॅचलर ऑफ होमिओपॅथिक मेडिसिन अँड सर्जरी · डिप्लोमा इन फार्मसी" />
+              <Timeline title="B.H.M.S., D.Pharmacy" detail="Bachelor of Homeopathic Medicine and Surgery · Diploma in Pharmacy" />
             </div>
           </div>
         </section>
