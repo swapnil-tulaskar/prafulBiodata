@@ -471,9 +471,21 @@ function ProfilePage() {
               </a>
             </div>
 
-            <p className="mt-10 font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground md:mt-12 md:text-sm">
-              बायोडाटा · सप्टेंबर २०२६
-            </p>
+           <div className="mt-10 space-y-3 md:mt-12">
+  <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground md:text-sm">
+    ❤️Biodata❤️
+  </p>
+  <div className="flex items-center justify-center gap-3">
+    <span className="h-px w-8 bg-gold/40 md:w-12" />
+    <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground/80 md:text-sm">
+      Created by
+    </p>
+    <span className="h-px w-8 bg-gold/40 md:w-12" />
+  </div>
+  <p className="font-script text-3xl leading-tight text-gold md:text-4xl">
+    Swapnil Tulaskar
+  </p>
+</div>
           </div>
         </section>
       </main>
