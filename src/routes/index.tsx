@@ -23,10 +23,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import heroImage from "../assets/praful-hero.webp";
 import kundliImage from "../assets/kundli.webp";
 
-// 👇 only Father and Mother have photos
-import fatherImg from "../assets/father.webp";
-import motherImg from "../assets/mother.webp";
-
 // 👇 groom photos
 import groom1 from "../assets/groom-1.webp";
 import groom2 from "../assets/groom-2.webp";
@@ -36,14 +32,13 @@ import groom4 from "../assets/groom-4.webp";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dr. Praful Tulaskar — Marriage Biodata" },
-      { name: "description", content: "Marriage biodata of Dr. Praful Tulaskar, BHMS, D.Pharma." },
-      { property: "og:title", content: "Dr. Praful Tulaskar — Matrimonial Profile" },
-      { property: "og:description", content: "A doctor, a devoted family man, and a thoughtful partner in search of a shared life." },
+      { title: "डॉ. प्रफुल तुळसकर — विवाह बायोडाटा" },
+      { name: "description", content: "डॉ. प्रफुल तुळसकर, बी.एच.एम.एस., डी.फार्मा का विवाह बायोडाटा।" },
+      { property: "og:title", content: "डॉ. प्रफुल तुळसकर — वैवाहिक प्रोफाइल" },
+      { property: "og:description", content: "एक डॉक्टर, एक समर्पित परिवारिक व्यक्ति, और साझा जीवन की तलाश में एक विचारशील साथी।" },
       { property: "og:type", content: "profile" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
-    // 👇 Preload hero image so it starts downloading before React mounts
     links: [
       { rel: "preload", as: "image", href: heroImage, fetchpriority: "high" },
     ],
@@ -53,44 +48,34 @@ export const Route = createFileRoute("/")({
 
 type ViewerItem = { src: string; alt: string; label: string };
 
-// 👇 Parents (with photos)
+// 👇 Parents (name + relation + detail only, no photo)
 const parents = [
-  { name: "Mr. Subhash Tulaskar", relation: "Father", detail: "Retired Govt. Teacher", src: fatherImg },
-  { name: "Mrs. Anita Tulaskar",  relation: "Mother", detail: "Anganwadi Teacher",     src: motherImg },
+  { name: "श्री. सुभाष तुळसकर", relation: "पिता", detail: "सेवानिवृत्त सरकारी शिक्षक" },
+  { name: "श्रीमती. अनिता तुळसकर", relation: "माता", detail: "आंगणवाडी शिक्षिका" },
 ];
 
-// 👇 Siblings & relatives (name + relation only, no photo)
+// 👇 Siblings (name + relation + detail only, no photo)
 const relatives = [
-  { name: "Mr. Swapnil Tulaskar", relation: "Elder Brother", detail: "B.E. Soft. Engineer" },
-  { name: "Mrs. Madhuri Tulaskar", relation: "Sister-in-law", detail: "M.sc. Asst. Professor" },
+  { name: "श्री. स्वप्निल तुळसकर", relation: "मोठा भाऊ", detail: "बी.ई. इंजिनियर" },
+  { name: "श्रीमती. माधुरी तुळसकर", relation: "वहिनी", detail: "एम.एससी. सहाय्यक प्राध्यापिका" },
 ];
 
 // Gallery viewer list — ONLY groom photos
 const groomPhotos: ViewerItem[] = [
-  { src: groom1, alt: "Dr. Praful Tulaskar", label: "Groom photo 1" },
-  { src: groom2, alt: "Dr. Praful Tulaskar", label: "Groom photo 2" },
-  { src: groom3, alt: "Dr. Praful Tulaskar", label: "Groom photo 3" },
-  { src: groom4, alt: "Dr. Praful Tulaskar", label: "Groom photo 4" },
-];
-
-const heroViewer: ViewerItem[] = [
-  { src: heroImage, alt: "Dr. Praful Tulaskar", label: "Profile portrait" },
+  { src: groom1, alt: "डॉ. प्रफुल तुळसकर", label: "वराचा फोटो १" },
+  { src: groom2, alt: "डॉ. प्रफुल तुळसकर", label: "वराचा फोटो २" },
+  { src: groom3, alt: "डॉ. प्रफुल तुळसकर", label: "वराचा फोटो ३" },
+  { src: groom4, alt: "डॉ. प्रफुल तुळसकर", label: "वराचा फोटो ४" },
 ];
 
 const kundliViewer: ViewerItem[] = [
-  { src: kundliImage, alt: "Birth kundli", label: "Kundli" },
+  { src: kundliImage, alt: "जन्म कुंडली", label: "कुंडली" },
 ];
 
-const parentsItems: ViewerItem[] = parents.map((p) => ({
-  src: p.src,
-  alt: `${p.name}, ${p.relation}`,
-  label: p.name,
-}));
-
 const contacts = [
-  { name: "Mr. Subhash Tulaskar", relation: "Father", phone: "9009329148" },
-  { name: "Mr. Hiralal Tulaskar", relation: "Uncle", phone: "9977745489" },
-  { name: "Mr. Pravin Sonavane", relation: "Maternal Uncle", phone: "9028549690" },
+  { name: "श्री. सुभाष तुळसकर", relation: "पिता", phone: "9009329148" },
+  { name: "श्री. हिरालाल तुळसकर", relation: "काका", phone: "9977745489" },
+  { name: "श्री. प्रविण सोनवणे", relation: "मामा", phone: "9028549690" },
 ];
 
 // 👇 Path + download name for the pre-made PDF
@@ -123,12 +108,6 @@ function ProfilePage() {
     return () => observer.disconnect();
   }, []);
 
-  const openHero = () => setViewer({ items: heroViewer, index: 0 });
-  const openParent = (i: number) => {
-    const parent = parentsItems[i];
-    if (!parent) return;
-    setViewer({ items: [parent], index: 0 });
-  };
   const openGroom = (i: number) => setViewer({ items: groomPhotos, index: i });
   const openKundli = () => setViewer({ items: kundliViewer, index: 0 });
   const closeViewer = () => setViewer(null);
@@ -151,47 +130,42 @@ function ProfilePage() {
       <main>
         {/* HERO */}
         <section id="home" className="relative min-h-[560px] h-[88svh] w-full overflow-hidden md:min-h-[720px] md:h-[92svh]">
-          <button
-            type="button"
-            className="absolute inset-0 h-full w-full cursor-zoom-in"
-            onClick={openHero}
-            aria-label="Open Dr. Praful's portrait"
-          >
-            <img
-              src={heroImage}
-              alt="Dr. Praful Tulaskar in a cream bandhgala"
-              width={1920}
-              height={1088}
-              fetchPriority="high"
-              decoding="async"
-              className="h-full w-full object-cover object-[68%_center]"
-            />
-          </button>
+          <img
+            src={heroImage}
+            alt="डॉ. प्रफुल तुळसकर क्रीम बंधगळा मध्ये"
+            width={1920}
+            height={1088}
+            fetchPriority="high"
+            decoding="async"
+            className="absolute inset-0 h-full w-full object-cover object-[68%_center]"
+          />
           <div className="pointer-events-none absolute inset-0 bg-hero-shade" />
           <div className="pointer-events-none relative mx-auto flex h-full max-w-7xl items-end px-5 pb-14 sm:px-6 md:px-10 md:pb-24">
             <div className="max-w-2xl animate-rise">
               <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.25em] text-gold sm:text-[10px] md:mb-5 md:text-[11px] md:tracking-[0.3em]">
-                Matrimonial profile · Basad
+                वैवाहिक प्रोफाइल · बसाड, जि. बुऱ्हाणपूर, मध्य प्रदेश
               </p>
-              <h1 className="font-display text-5xl leading-[0.9] text-paper sm:text-6xl md:text-8xl md:leading-[0.88]">
-                Dr. Praful
+              <h1 className="font-display text-5xl leading-[0.9] text-paper sm:text-6xl md:text-6xl md:leading-[0.88]">
+                डॉ. प्रफुल
                 <br />
-                <span className="italic text-linen">Tulaskar</span>
+                <span className="italic text-linen">तुळसकर</span>
               </h1>
               <p className="mt-5 max-w-xl font-display text-xl italic leading-snug text-paper/90 sm:text-2xl md:mt-6 md:text-3xl">
-                A physician by profession, grounded by family, and in search of a companion for a meaningful life.
+                व्यवसायाने डॉक्टर, कुटुंबाने बांधलेले, आणि अर्थपूर्ण जीवनसाठी साथीदाराच्या शोधात.
               </p>
               <div className="pointer-events-auto mt-7 flex flex-wrap gap-2.5 md:mt-8 md:gap-3">
-                <a href="#about" className="action-primary">
-                  Explore biodata <ChevronRight size={15} />
+                <a href="#about" className="action-primary text-base md:text-lg">
+                  बायोडाटा पहा <ChevronRight size={15} />
                 </a>
-                <a href="#gallery" className="action-ghost">View gallery</a>
+                <a href="#gallery" className="action-ghost text-base md:text-lg">
+                  गॅलरी पहा
+                </a>
                 <a
                   href={PDF_URL}
                   download={PDF_FILENAME}
-                  className="action-ghost"
+                  className="action-ghost text-base md:text-lg"
                 >
-                  <Download size={14} /> Biodata
+                  <Download size={14} /> बायोडाटा
                 </a>
               </div>
             </div>
@@ -199,15 +173,15 @@ function ProfilePage() {
         </section>
 
         {/* QUICK SUMMARY */}
-        <section aria-label="Quick profile summary" className="border-y border-border bg-secondary/70">
-          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 gap-y-4 px-5 py-5 font-mono text-[10px] uppercase tracking-[0.12em] sm:grid-cols-3 sm:px-6 md:grid-cols-6 md:gap-y-5 md:px-10 md:py-6">
+        <section aria-label="त्वरित प्रोफाइल सारांश" className="border-y border-border bg-secondary/70">
+          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 gap-y-4 px-5 py-5 font-mono text-[16px] uppercase tracking-[0.12em] sm:grid-cols-3 sm:px-6 md:grid-cols-6 md:gap-y-5 md:px-10 md:py-6">
             {[
-              ["Age", "28 years"],
-              ["Height", "5'9\""],
-              ["Education", "BHMS, D.Pharma"],
-              ["Profession", "Clinic Owner"],
-              ["Location", "Basad"],
-              ["Status", "Never married"],
+              ["वय", "२८ वर्षे"],
+              ["उंची", "५'९\""],
+              ["शिक्षण", "बी.एच.एम.एस., डी.फार्मा"],
+              ["व्यवसाय", "स्वतःचा क्लिनिक"],
+              ["स्थान", "बसाड  जि. बुऱ्हाणपूर"],
+              ["वैवाहिक स्थिती", "अविवाहित"],
             ].map(([label, value]) => (
               <div key={label} className="border-l border-border pl-3 md:pl-4">
                 <p className="text-muted-foreground">{label}</p>
@@ -219,27 +193,31 @@ function ProfilePage() {
 
         {/* ABOUT */}
         <section id="about" className="section-grid">
-          <SectionIntro index="(a)" eyebrow="Personal profile" title={<>A considered<br />introduction</>} />
+          <div className="self-start md:col-span-4 md:sticky md:top-28">
+            <p className="font-mono text-base uppercase tracking-[0.2em] text-gold sm:text-lg md:text-xl">
+              वैयक्तिक प्रोफाइल
+            </p>
+            <div className="mt-5 h-px w-16 bg-gold/60 md:mt-7" />
+          </div>
           <div className="md:col-span-7 md:col-start-6">
             <p className="editorial-copy">
-              I am a BHMS doctor and D.Pharma, running my own clinic—Swapnapurti Day-Care Centre—in Nepanagar Road,
-              Nashirabad. Medicine has taught me empathy, patience, and the value of being fully present—qualities I
-              hope to bring into a marriage.
-            </p>
-            <p className="editorial-copy mt-5">
-              Outside the clinic, I enjoy reading, photography, Watching Movies,travel, and listening to music. I
-              value warmth, intellectual curiosity, and a home built on mutual respect.
+              मी बी.एच.एम.एस. डॉक्टर आहे आणि नाशिराबाद येथे माझे स्वतःचे क्लिनिक{" "}
+              <Bold>स्वप्नपूर्ती डे-केअर सेंटर</Bold>
+              {" "}चालवतो. माझ्या व्यवसायाने मला केवळ वैद्यकीय ज्ञान दिले नाही, तर जबाबदारी, संयम
+              आणि स्पष्ट निर्णय घेण्याची सवयही लावली. मी स्वभावाने शांत, प्रामाणिक आणि सहकार्य करणारा आहे.
+              जीवनसाथीकडून मला परस्पर आदर, स्पष्ट संवाद आणि एकमेकांना साथ देण्याची तयारी यांची अपेक्षा आहे.
             </p>
             <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 md:mt-10 md:gap-x-8 md:gap-y-5">
               {[
-                ["Full name", "Dr. Praful Subhash Tulaskar"],
-                ["Born", "10 April 1998"],
-                ["Birth time", "6:55 PM"],
-                ["Birth place", "Ainpur, Tal. Raver, Dist. Jalgaon"],
-                ["Blood group", "A+"],
-                ["Native place", "Shahpur, Dist. Burahanpur"],
+                ["पूर्ण नाव", "डॉ. प्रफुल सुभाष तुळसकर"],
+                ["जन्म", "१० एप्रिल १९९८"],
+                ["जन्म वेळ", "सायं. ६:५५"],
+                ["जन्म स्थळ", "ऐनपूर, ता. रावेर, जि. जळगाव"],
+                ["रक्तगट", "A+"],
+                ["मूळ गाव", "शाहपुर, जि. बुऱ्हाणपूर"],
+                ["मामकुळ", "सोनवणे"],
               ].map(([label, value]) => (
-                  <Detail key={label} label={label ?? ""} value={value ?? ""} />
+                <Detail key={label} label={label ?? ""} value={value ?? ""} />
               ))}
             </div>
           </div>
@@ -248,10 +226,15 @@ function ProfilePage() {
         {/* CAREER */}
         <section id="career" className="border-y border-border bg-secondary/45">
           <div className="section-grid">
-            <SectionIntro index="(b)" eyebrow="Education & career" title={<>A vocation<br />of care</>} />
+            <div className="self-start md:col-span-4 md:sticky md:top-28">
+              <p className="font-mono text-base uppercase tracking-[0.2em] text-gold sm:text-lg md:text-xl">
+                व्यवसाय
+              </p>
+              <div className="mt-5 h-px w-16 bg-gold/60 md:mt-7" />
+            </div>
             <div className="space-y-0 md:col-span-7 md:col-start-6">
-              <Timeline title="Clinic Owner" detail="Swapnapurti Day-Care Centre · Nepanagar Road, Nashirabad" />
-              <Timeline title="BHMS, D.Pharma" detail="Bachelor of Homeopathic Medicine and Surgery · Diploma in Pharmacy" />
+              <Timeline title="क्लिनिक" detail="स्वप्नपूर्ती डे-केअर सेंटर · नेपानगर रोड, नाशिराबाद" />
+              <Timeline title="बी.एच.एम.एस., डी.फार्मा" detail="बॅचलर ऑफ होमिओपॅथिक मेडिसिन अँड सर्जरी · डिप्लोमा इन फार्मसी" />
             </div>
           </div>
         </section>
@@ -261,60 +244,25 @@ function ProfilePage() {
           <div className="mx-auto max-w-7xl px-5 py-16 sm:px-6 md:px-10 md:py-28">
             <div className="mb-8 flex flex-col gap-3 md:mb-12 md:flex-row md:items-end md:justify-between">
               <div>
-                <p className="section-kicker">(c) — Family</p>
-                <h2 className="font-display text-4xl leading-none sm:text-5xl md:text-6xl">
-                  Raised in a warm<br />
-                  <span className="italic text-linen">household</span>
-                </h2>
+                <p className="section-kicker text-lg sm:text-xl md:text-2xl">कुटुंब</p>
               </div>
-              <p className="max-w-xs font-mono text-[10px] uppercase tracking-[0.18em] text-primary-foreground/50 md:text-right">
-                Parents & relatives
-              </p>
             </div>
 
-            {/* Parents — with photos */}
-            <div className="grid grid-cols-2 gap-4 md:gap-8 lg:max-w-3xl">
-              {parents.map((person, index) => (
-                <article key={person.name}>
-                  <button
-                    type="button"
-                    onClick={() => openParent(index)}
-                    className="group block aspect-[4/5] w-full cursor-zoom-in overflow-hidden bg-primary"
-                    aria-label={`View ${person.name}'s portrait`}
-                  >
-                    <img
-                      src={person.src}
-                      alt={`${person.name}, ${person.relation}`}
-                      width={800}
-                      height={1000}
-                      loading="lazy"
-                      decoding="async"
-                      className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
-                    />
-                  </button>
-                  <h3 className="mt-3 font-display text-lg italic sm:text-xl">{person.name}</h3>
-                  <p className="mt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-gold">
-                    {person.relation} · {person.detail}
-                  </p>
-                </article>
-              ))}
-            </div>
-
-            {/* Other family members — name + relation only */}
-            <div className="mt-14 max-w-3xl md:mt-20">
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-primary-foreground/50">
-                Also in the family
+            {/* Parents — name + relation only, no photos */}
+            <div className="max-w-3xl">
+              <p className="font-mono text-[13px] uppercase tracking-[0.2em] text-primary-foreground/80">
+                पालक
               </p>
               <dl className="mt-5 divide-y divide-primary-foreground/15 border-y border-primary-foreground/15">
-                {relatives.map((person) => (
+                {parents.map((person) => (
                   <div
                     key={person.name}
                     className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
                   >
-                    <dt className="font-display text-lg italic sm:text-xl">
+                    <dt className="font-display text-primary-foreground/70 text-lg italic sm:text-xl">
                       {person.name}
                     </dt>
-                    <dd className="font-mono text-[10px] uppercase tracking-[0.14em] text-gold sm:text-right">
+                    <dd className="font-mono text-xs uppercase tracking-[0.14em] text-gold sm:text-right">
                       {person.relation} · {person.detail}
                     </dd>
                   </div>
@@ -322,64 +270,102 @@ function ProfilePage() {
               </dl>
             </div>
 
-            <div className="mt-12 max-w-3xl border-t border-primary-foreground/15 pt-6 md:mt-16 md:pt-7">
-              <p className="font-display text-xl italic leading-relaxed text-primary-foreground/85 sm:text-2xl">
-                "A close-knit, progressive Maharashtrian family that values education, humility, cultural roots, and
-                giving each other room to grow."
+            {/* Other family members — name + relation only */}
+            <div className="mt-14 max-w-3xl md:mt-20">
+              <p className="font-mono text-[13px] uppercase tracking-[0.2em] text-primary-foreground/80">
+                भावंड
               </p>
+
+              {/* भाऊ १ (विवाहित) */}
+              <p className="mt-6 font-display text-lg italic text-gold sm:text-xl">
+                भाऊ १ (विवाहित)
+              </p>
+              <dl className="mt-3 divide-y divide-primary-foreground/15 border-y border-primary-foreground/15">
+                {relatives.map((person) => (
+                  <div
+                    key={person.name}
+                    className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                  >
+                    <dt className="font-display text-lg italic text-primary-foreground/70 sm:text-xl">
+                      {person.name}
+                    </dt>
+                    <dd className="font-mono text-xs uppercase tracking-[0.14em] text-gold sm:text-right">
+                      {person.relation} · {person.detail}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+
+              {/* बहीण */}
+              <p className="mt-10 font-display text-lg italic text-gold sm:text-xl">
+                बहीण
+              </p>
+              <dl className="mt-3 border-y border-primary-foreground/15">
+                <div className="flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
+                  <dt className="font-display text-lg italic text-primary-foreground/60 sm:text-xl">
+                    नाही
+                  </dt>
+                  <dd className="font-mono text-sm uppercase tracking-[0.14em] text-white sm:text-right">
+                    —
+                  </dd>
+                </div>
+              </dl>
             </div>
           </div>
         </section>
 
-        {/* KUNDLI */}
-        <section id="kundli" className="section-grid">
-          <div className="md:col-span-5">
-            <SectionIntro index="(d)" eyebrow="Horoscope & Kundli" title={<>A brief<br />astrological folio</>} />
-            <p className="mt-5 max-w-md leading-relaxed text-muted-foreground md:mt-6">
-              Included for families who value tradition. The complete chart can be viewed or downloaded.
-            </p>
-            <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 md:mt-8 md:gap-x-8 md:gap-y-5">
-              {[
-                ["Religion", "Hindu"],
-                ["Caste", "Sutar (Panchal)"],
-                ["Gotra", "Kaushika"],
-                ["Manglik", "Non-Manglik"],
-                ["Rashi", "Kanya"],
-                ["Nakshatra", "Hasta"],
-              ].map(([label, value]) => (
-                <Detail key={label} label={label ?? ""} value={value ?? ""} />
-              ))}
-            </div>
-          </div>
-          <div className="md:col-span-6 md:col-start-7">
-            <button
-              type="button"
-              onClick={openKundli}
-              className="group relative block w-full overflow-hidden border border-gold/30 bg-card p-2 md:p-3"
-              aria-label="Open Kundli viewer"
-            >
-              <img
-                src={kundliImage}
-                alt="Traditional birth Kundli"
-                width={1024}
-                height={1280}
-                loading="lazy"
-                decoding="async"
-                className="mx-auto aspect-[4/5] max-h-[520px] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.015] md:max-h-[620px]"
-              />
-              <span className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-primary-foreground md:bottom-7">
-                View Kundli
-              </span>
-            </button>
-          </div>
-        </section>
+      {/* KUNDLI */}
+<section id="kundli" className="section-grid">
+  <div className="md:col-span-5">
+       <p className="section-kicker text-lg sm:text-xl md:text-2xl">
+                जन्मपत्रिका आणि कुंडली
+              </p>
+    <div className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 md:mt-8 md:gap-x-8 md:gap-y-5">
+      {[
+        ["धर्म", "हिंदू"],
+        ["जात", "सुतार (पांचाळ)"],
+        ["गोत्र", "कौशिक"],
+        ["मांगलिक", "मांगलिक (स्वराशीमुळे अंशतः शांत)"],
+        ["लग्न", "तूळ"],
+        ["राशी", "कन्या"],
+        ["नक्षत्र", "हस्त, चरण १"],
+        ["सध्याची दशा", "राहु–शुक्र (२०२५–२०२८)"],
+      ].map(([label, value]) => (
+        <Detail key={label} label={label ?? ""} value={value ?? ""} />
+      ))}
+    </div>
+    </div>
+  <div className="md:col-span-6 md:col-start-7">
+    <button
+      type="button"
+      onClick={openKundli}
+      className="group relative block w-full overflow-hidden border border-gold/30 bg-card p-2 md:p-3"
+      aria-label="कुंडली व्ह्यूअर उघडा"
+    >
+      <img
+        src={kundliImage}
+        alt="पारंपारिक जन्म कुंडली"
+        width={1024}
+        height={1280}
+        loading="lazy"
+        decoding="async"
+        className="mx-auto aspect-[4/5] max-h-[520px] w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.015] md:max-h-[620px]"
+      />
+      <span className="absolute bottom-5 left-1/2 -translate-x-1/2 bg-primary px-4 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-primary-foreground md:bottom-7">
+        कुंडली पहा
+      </span>
+    </button>
+  </div>
+</section>
 
         {/* INTERESTS */}
         <section id="interests" className="border-y border-border bg-secondary/45">
           <div className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:px-10 md:py-20">
-            <p className="section-kicker">(e) — Beyond medicine</p>
+            <p className="section-kicker text-lg sm:text-xl md:text-2xl">
+              Hobbies
+            </p>
             <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 font-display text-2xl italic text-primary sm:text-3xl md:gap-x-8 md:gap-y-4 md:text-5xl">
-              {["Reading", "Photography", "Watching Movies", "Listening to music"].map((i) => (
+              {["Reading", "Photography", "Watching Movies", "Listening to Music"].map((i) => (
                 <span key={i} className="border-b border-gold/35 pb-1">{i}</span>
               ))}
             </div>
@@ -390,12 +376,10 @@ function ProfilePage() {
         <section id="gallery" className="mx-auto max-w-7xl px-5 py-14 sm:px-6 md:px-10 md:py-28">
           <div className="mb-8 flex flex-col gap-2 md:mb-10 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="section-kicker">(f) — Gallery</p>
-              <h2 className="font-display text-4xl text-primary sm:text-5xl md:text-6xl">A few moments</h2>
+              <p className="section-kicker text-lg sm:text-xl md:text-2xl">
+                फोटो गॅलरी
+              </p>
             </div>
-            <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">
-              Gallery · {groomPhotos.length} photos
-            </p>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5">
             {groomPhotos.map((item, i) => (
@@ -404,7 +388,7 @@ function ProfilePage() {
                 key={item.label}
                 onClick={() => openGroom(i)}
                 className="group block w-full overflow-hidden bg-secondary"
-                aria-label="Open photo"
+                aria-label="फोटो उघडा"
               >
                 <img
                   src={item.src}
@@ -421,46 +405,60 @@ function ProfilePage() {
         {/* CONTACT */}
         <section id="contact" className="border-t border-border bg-secondary/60">
           <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-6 md:py-24">
-            <p className="section-kicker">(g) — A private note</p>
-            <h2 className="mt-4 font-display text-4xl leading-tight text-primary sm:text-5xl md:mt-5 md:text-7xl md:leading-none">
-              If this resonates,<br />
-              <span className="italic">let's begin</span>
-            </h2>
-            <p className="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-7">
-              Reach the <strong className="font-bold text-gray-900">Tulaskar Family</strong> through our designated contact. Personal details are shared privately and respectfully.
+            <p className="section-kicker text-lg sm:text-xl md:text-2xl">
+              संपर्क
             </p>
+
+            <h2 className="mt-4 font-display text-sm leading-snug text-primary sm:text-2xl md:mt-5 md:text-3xl md:leading-snug">
+              जर हे जुळत असेल,
+              <span className="italic">तर सुरुवात करूया</span>
+            </h2>
+
+            <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-4">
+              <strong className="block font-bold text-gray-900">तुळसकर कुटुंबाशी</strong>{" "}
+              आमच्या निर्धारित संपर्काद्वारे संपर्क साधा. वैयक्तिक माहिती खाजगीरित्या आणि आदराने सामायिक केली जाते.
+            </p>
+
             <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-3 md:mt-10 md:gap-4">
               {contacts.map((person) => (
                 <div key={person.phone} className="flex items-center justify-between gap-3 border-b border-border pb-3">
                   <span className="text-left font-display text-base text-foreground sm:text-lg md:text-xl">
                     {person.name}
-                    <span className="ml-2 font-mono text-[9px] uppercase tracking-[0.14em] text-gold sm:text-[10px]">
+                    <span className="ml-2 text-sm uppercase tracking-[0.1em] text-gold sm:text-base md:text-lg">
                       {person.relation}
                     </span>
                   </span>
-                  <a href={`tel:+91${person.phone}`} className="action-dark shrink-0" aria-label={`Call ${person.name}`}>
-                    <Phone size={14} /> Call
+                  <a
+                    href={`tel:+91${person.phone}`}
+                    className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground transition-colors hover:bg-primary/90"
+                    aria-label={`${person.name} यांना कॉल करा`}
+                  >
+                    <Phone size={18} />
                   </a>
                 </div>
               ))}
             </div>
+
             <p className="mt-6 text-sm text-muted-foreground md:mt-8">
-              <MapPin size={13} className="mr-1 inline" /> Basad Dist. Burahanpur, Madhya Pradesh
+              <MapPin size={13} className="mr-1 inline" />
+              बसाड, जि. बुऱ्हाणपूर, मध्य प्रदेश
             </p>
+
             <div className="mt-7 flex flex-wrap items-center justify-center gap-2.5 md:mt-9 md:gap-3">
               <button type="button" onClick={() => setShareOpen(true)} className="action-outline">
-                <Share2 size={14} /> Share profile
+                <Share2 size={14} /> प्रोफाइल शेअर करा
               </button>
               <a
                 href={PDF_URL}
                 download={PDF_FILENAME}
                 className="action-outline"
               >
-                <Printer size={14} /> Save to PDF
+                <Printer size={14} /> PDF मध्ये जतन करा
               </a>
             </div>
+
             <p className="mt-10 font-mono text-[9px] uppercase tracking-[0.2em] text-muted-foreground md:mt-12">
-              Biodata · Updated September 2026
+              बायोडाटा · सप्टेंबर २०२६
             </p>
           </div>
         </section>
@@ -491,22 +489,22 @@ function Header({ activeSection, menuOpen, setMenuOpen, onShare }: {
   onShare: () => void;
 }) {
   const links = [
-    ["home", "Home"],
-    ["about", "About"],
-    ["career", "Career"],
-    ["family", "Family"],
-    ["kundli", "Kundli"],
-    ["gallery", "Gallery"],
-    ["contact", "Contact"],
+    ["home", "मुख्यपृष्ठ"],
+    ["about", "ओळख"],
+    ["career", "व्यवसाय"],
+    ["family", "कुटुंब"],
+    ["kundli", "कुंडली"],
+    ["gallery", "गॅलरी"],
+    ["contact", "संपर्क"],
   ];
   return (
     <header className="fixed inset-x-0 top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md print:hidden">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-5 md:px-10">
         <a href="#home" className="flex items-baseline gap-2 sm:gap-3">
-          <span className="font-display text-xl italic text-primary sm:text-2xl">Dr. Praful</span>
+          <span className="font-display text-xl italic text-primary sm:text-2xl">डॉ. प्रफुल</span>
           <span className="hidden h-4 w-px bg-gold/50 sm:block" />
           <span className="font-mono text-[8px] uppercase tracking-[0.15em] text-muted-foreground sm:text-[9px] sm:tracking-[0.2em]">
-            Biodata · 1998
+            बायोडाटा · १९९८
           </span>
         </a>
         <nav className="hidden items-center gap-5 lg:flex">
@@ -517,14 +515,14 @@ function Header({ activeSection, menuOpen, setMenuOpen, onShare }: {
           ))}
         </nav>
         <div className="flex items-center gap-1">
-          <button type="button" className="icon-control" onClick={onShare} aria-label="Share profile">
+          <button type="button" className="icon-control" onClick={onShare} aria-label="प्रोफाइल शेअर करा">
             <Share2 size={18} />
           </button>
           <button
             type="button"
             className="icon-control lg:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Toggle navigation"
+            aria-label="नेव्हिगेशन टॉगल करा"
           >
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
@@ -548,6 +546,10 @@ function Header({ activeSection, menuOpen, setMenuOpen, onShare }: {
   );
 }
 
+function Bold({ children }: { children: React.ReactNode }) {
+  return <strong className="font-bold text-foreground">{children}</strong>;
+}
+
 function SectionIntro({ index, eyebrow, title }: { index: string; eyebrow: string; title: React.ReactNode }) {
   return (
     <div className="self-start md:col-span-4 md:sticky md:top-28">
@@ -561,8 +563,12 @@ function SectionIntro({ index, eyebrow, title }: { index: string; eyebrow: strin
 function Detail({ label, value }: { label: string; value: string }) {
   return (
     <div className="border-b border-border pb-3">
-      <dt className="font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">{label}</dt>
-      <dd className="mt-1 text-sm text-foreground">{value}</dd>
+      <dt className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">
+        {label}
+      </dt>
+      <dd className="mt-1 text-base font-bold leading-relaxed text-foreground">
+        {value}
+      </dd>
     </div>
   );
 }
@@ -578,40 +584,40 @@ function Timeline({ title, detail }: { title: string; detail: string }) {
 
 function ShareDialog({ onClose, onCopy, copied }: { onClose: () => void; onCopy: () => void; copied: boolean }) {
   const pageUrl = typeof window === "undefined" ? "" : window.location.href;
-  const shareText = encodeURIComponent("Dr. Praful Tulaskar — Matrimonial Profile");
+  const shareText = encodeURIComponent("डॉ. प्रफुल तुळसकर — वैवाहिक प्रोफाइल");
   return (
-    <div className="fixed inset-0 z-[60] grid place-items-center bg-overlay px-4 py-6 sm:px-5" role="dialog" aria-modal="true" aria-label="Share profile">
+    <div className="fixed inset-0 z-[60] grid place-items-center bg-overlay px-4 py-6 sm:px-5" role="dialog" aria-modal="true" aria-label="प्रोफाइल शेअर करा">
       <div className="max-h-[90vh] w-full max-w-md overflow-y-auto border border-border bg-background p-5 shadow-elevated sm:p-7">
         <div className="flex items-start justify-between">
           <div>
-            <p className="section-kicker">Share profile</p>
-            <h2 className="mt-2 font-display text-2xl text-primary sm:text-3xl">Send with care</h2>
+            <p className="section-kicker">प्रोफाइल शेअर करा</p>
+            <h2 className="mt-2 font-display text-2xl text-primary sm:text-3xl">काळजीपूर्वक पाठवा</h2>
           </div>
-          <button type="button" className="icon-control" onClick={onClose} aria-label="Close share dialog">
+          <button type="button" className="icon-control" onClick={onClose} aria-label="शेअर डायलॉग बंद करा">
             <X size={18} />
           </button>
         </div>
         <div className="mt-6 grid grid-cols-1 gap-2.5 sm:mt-7 sm:grid-cols-2 sm:gap-3">
           <button type="button" onClick={onCopy} className="share-option">
-            <Copy size={16} /> {copied ? "Link copied" : "Copy link"}
+            <Copy size={16} /> {copied ? "लिंक कॉपी झाली" : "लिंक कॉपी करा"}
           </button>
           <a className="share-option" href={`https://wa.me/?text=${shareText}%20${encodeURIComponent(pageUrl)}`} target="_blank" rel="noreferrer">
-            <Phone size={16} /> WhatsApp
+            <Phone size={16} /> व्हॉट्सॲप
           </a>
           <a className="share-option" href={`mailto:?subject=${shareText}&body=${encodeURIComponent(pageUrl)}`}>
-            <Mail size={16} /> Email
+            <Mail size={16} /> ईमेल
           </a>
           <a className="share-option" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`} target="_blank" rel="noreferrer">
-            <Facebook size={16} /> Facebook
+            <Facebook size={16} /> फेसबुक
           </a>
           <button
             type="button"
             className="share-option sm:col-span-2"
             onClick={async () => {
-              if (navigator.share) await navigator.share({ title: "Dr. Praful Tulaskar", url: pageUrl });
+              if (navigator.share) await navigator.share({ title: "डॉ. प्रफुल तुळसकर", url: pageUrl });
             }}
           >
-            <ExternalLink size={16} /> More options
+            <ExternalLink size={16} /> अधिक पर्याय
           </button>
         </div>
       </div>
@@ -666,7 +672,7 @@ function ImageViewer({ items, index, setIndex, onClose }: {
       className="fixed inset-0 z-[70] flex flex-col bg-viewer text-paper print:hidden"
       role="dialog"
       aria-modal="true"
-      aria-label={`${item.label} image viewer`}
+      aria-label={`${item.label} इमेज व्ह्यूअर`}
       onTouchStart={(event) => { touchStart.current = event.touches[0]?.clientX ?? null; }}
       onTouchEnd={(event) => {
         if (!canNavigate) return;
@@ -684,16 +690,16 @@ function ImageViewer({ items, index, setIndex, onClose }: {
           {canNavigate && ` · ${index + 1} / ${items.length}`}
         </p>
         <div className="flex items-center gap-0.5 md:gap-1">
-          <ViewerButton label="Zoom out" onClick={() => setZoom((z) => Math.max(z - 0.25, 0.75))}><Minus /></ViewerButton>
-          <ViewerButton label="Reset zoom" onClick={() => setZoom(1)}><RotateCcw /></ViewerButton>
-          <ViewerButton label="Zoom in" onClick={() => setZoom((z) => Math.min(z + 0.25, 3))}><Plus /></ViewerButton>
-          <ViewerButton label="Full screen" onClick={toggleFullscreen}><Maximize /></ViewerButton>
-          <ViewerButton label="Close" onClick={onClose}><X /></ViewerButton>
+          <ViewerButton label="झूम आउट" onClick={() => setZoom((z) => Math.max(z - 0.25, 0.75))}><Minus /></ViewerButton>
+          <ViewerButton label="झूम रीसेट करा" onClick={() => setZoom(1)}><RotateCcw /></ViewerButton>
+          <ViewerButton label="झूम इन" onClick={() => setZoom((z) => Math.min(z + 0.25, 3))}><Plus /></ViewerButton>
+          <ViewerButton label="पूर्ण स्क्रीन" onClick={toggleFullscreen}><Maximize /></ViewerButton>
+          <ViewerButton label="बंद करा" onClick={onClose}><X /></ViewerButton>
         </div>
       </div>
       <div className="relative flex flex-1 items-center justify-center overflow-auto p-2 md:p-10">
         {canNavigate && (
-          <button type="button" className="viewer-nav left-2 md:left-3" onClick={previous} aria-label="Previous image">
+          <button type="button" className="viewer-nav left-2 md:left-3" onClick={previous} aria-label="मागील इमेज">
             <ChevronLeft />
           </button>
         )}
@@ -706,7 +712,7 @@ function ImageViewer({ items, index, setIndex, onClose }: {
           draggable={false}
         />
         {canNavigate && (
-          <button type="button" className="viewer-nav right-2 md:right-3" onClick={next} aria-label="Next image">
+          <button type="button" className="viewer-nav right-2 md:right-3" onClick={next} aria-label="पुढील इमेज">
             <ChevronRight />
           </button>
         )}

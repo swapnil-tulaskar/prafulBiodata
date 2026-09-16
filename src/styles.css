@@ -186,13 +186,13 @@
 
 @utility editorial-copy {
   max-width: 65ch;
-  font-size: 1rem;
-  line-height: 1.85;
+  font-size: 1.125rem;      /* 18px */
+  line-height: 1.9;
   text-wrap: pretty;
   color: color-mix(in oklab, var(--color-foreground) 88%, transparent);
 
   @media (width >= 48rem) {
-    font-size: 1.05rem;
+    font-size: 1.25rem;     /* 20px */
   }
 }
 
