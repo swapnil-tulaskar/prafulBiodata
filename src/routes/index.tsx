@@ -50,14 +50,14 @@ type ViewerItem = { src: string; alt: string; label: string };
 
 // 👇 Parents (name + relation + detail only, no photo)
 const parents = [
-  { name: "श्री. सुभाष तुळसकर", relation: "पिता", detail: "सेवानिवृत्त सरकारी शिक्षक" },
-  { name: "श्रीमती. अनिता तुळसकर", relation: "माता", detail: "आंगणवाडी शिक्षिका" },
+  { name: "श्री. सुभाष बाबुराव तुळसकर", relation: "पिता", detail: "सेवानिवृत्त सरकारी शिक्षक" },
+  { name: "श्रीमती. अनिता सुभाष तुळसकर", relation: "माता", detail: "आंगणवाडी शिक्षिका" },
 ];
 
 // 👇 Siblings (name + relation + detail only, no photo)
 const relatives = [
-  { name: "श्री. स्वप्निल तुळसकर", relation: "मोठा भाऊ", detail: "B.E.इंजिनियर" },
-  { name: "श्रीमती. माधुरी तुळसकर", relation: "वहिनी", detail: "M.Sc. सहा.प्राध्यापिका" },
+  { name: "श्री. स्वप्निल सुभाष तुळसकर", relation: "मोठा भाऊ", detail: "B.E.इंजिनियर" },
+  { name: "श्रीमती. माधुरी स्वप्निल तुळसकर", relation: "वहिनी", detail: "M.Sc. सहा.प्राध्यापिका" },
 ];
 
 // Gallery viewer list — ONLY groom photos
@@ -74,9 +74,9 @@ const kundliViewer: ViewerItem[] = [
 
 // 👇 Contacts — name + relation + detail (व्यवसाय) + phone
 const contacts = [
-  { name: "श्री. सुभाष तुळसकर", relation: "पिता", detail: "सेवानिवृत्त सरकारी शिक्षक", phone: "9009329148" },
-  { name: "श्री. हिरालाल तुळसकर", relation: "काका", detail: "सरकारी शिक्षक", phone: "9977745489" },
-  { name: "श्री. प्रविण सोनवणे", relation: "मामा", detail: "व्यवसाय", phone: "9028549690" },
+  { name: "श्री. सुभाष बाबुराव तुळसकर", relation: "पिता", detail: "सेवानिवृत्त सरकारी शिक्षक", phone: "9009329148" },
+  { name: "श्री. हिरालाल बाबुराव तुळसकर", relation: "काका", detail: "सरकारी शिक्षक", phone: "9977745489" },
+  { name: "श्री. प्रविण सिताराम सोनवणे", relation: "मामा", detail: "व्यवसाय", phone: "9028549690" },
 ];
 
 // 👇 Path + download name for the pre-made PDF
