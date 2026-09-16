@@ -146,9 +146,7 @@ function ProfilePage() {
               
               </p>
               <h1 className="font-display text-5xl leading-[0.9] text-paper sm:text-6xl md:text-6xl md:leading-[0.88]">
-                डॉ. प्रफुल
-                <br />
-                <span className="italic text-linen">तुळसकर</span>
+                डॉ. प्रफुल तुळसकर
               </h1>
               <p className="mt-5 max-w-xl font-display text-xl italic leading-snug text-paper/90 sm:text-2xl md:mt-6 md:text-3xl">
                 व्यवसायाने डॉक्टर, कुटुंबाने बांधलेले, आणि अर्थपूर्ण जीवनसाठी साथीदाराच्या शोधात.
