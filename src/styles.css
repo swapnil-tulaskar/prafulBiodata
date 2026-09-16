@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Marathi:ital@0;1&display=swap');
 @import "tailwindcss";
 @source "../src";
 @import "tw-animate-css";
@@ -6,6 +7,7 @@
 
 @theme inline {
   --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-calligraphy: "Tiro Devanagari Marathi", "Cormorant Garamond", Georgia, serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   --radius-sm: calc(var(--radius) - 4px);
@@ -186,13 +188,13 @@
 
 @utility editorial-copy {
   max-width: 65ch;
-  font-size: 1.125rem;      /* 18px */
+  font-size: 1.125rem;
   line-height: 1.9;
   text-wrap: pretty;
   color: color-mix(in oklab, var(--color-foreground) 88%, transparent);
 
   @media (width >= 48rem) {
-    font-size: 1.25rem;     /* 20px */
+    font-size: 1.25rem;
   }
 }
 

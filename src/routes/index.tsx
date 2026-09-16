@@ -40,7 +40,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "preload", as: "image", href: heroImage, fetchpriority: "high" },
+      { rel: "preload", as: "image", href: heroImage, fetchPriority: "high" },
     ],
   }),
   component: ProfilePage,
@@ -50,14 +50,14 @@ type ViewerItem = { src: string; alt: string; label: string };
 
 // 👇 Parents (name + relation + detail only, no photo)
 const parents = [
-  { name: "श्री. सुभाष तुळसकर", relation: "पिता", detail: "Retired Government Teacher" },
-  { name: "श्रीमती. अनिता तुळसकर", relation: "माता", detail: "Anganwadi Teacher" },
+  { name: "श्री. सुभाष तुळसकर", relation: "पिता", detail: "सेवानिवृत्त सरकारी शिक्षक" },
+  { name: "श्रीमती. अनिता तुळसकर", relation: "माता", detail: "आंगणवाडी शिक्षिका" },
 ];
 
 // 👇 Siblings (name + relation + detail only, no photo)
 const relatives = [
-  { name: "श्री. स्वप्निल तुळसकर", relation: "मोठा भाऊ", detail: "B.E. Engineer" },
-  { name: "श्रीमती. माधुरी तुळसकर", relation: "वहिनी", detail: "M.Sc. Assistant Professor" },
+  { name: "श्री. स्वप्निल तुळसकर", relation: "मोठा भाऊ", detail: "B.E.इंजिनियर" },
+  { name: "श्रीमती. माधुरी तुळसकर", relation: "वहिनी", detail: "M.Sc. सहा.प्राध्यापिका" },
 ];
 
 // Gallery viewer list — ONLY groom photos
@@ -72,10 +72,11 @@ const kundliViewer: ViewerItem[] = [
   { src: kundliImage, alt: "जन्म कुंडली", label: "कुंडली" },
 ];
 
+// 👇 Contacts — name + relation + detail (व्यवसाय) + phone
 const contacts = [
-  { name: "श्री. सुभाष तुळसकर", relation: "पिता", phone: "9009329148" },
-  { name: "श्री. हिरालाल तुळसकर", relation: "काका", phone: "9977745489" },
-  { name: "श्री. प्रविण सोनवणे", relation: "मामा", phone: "9028549690" },
+  { name: "श्री. सुभाष तुळसकर", relation: "पिता", detail: "सेवानिवृत्त सरकारी शिक्षक", phone: "9009329148" },
+  { name: "श्री. हिरालाल तुळसकर", relation: "काका", detail: "सरकारी शिक्षक", phone: "9977745489" },
+  { name: "श्री. प्रविण सोनवणे", relation: "मामा", detail: "व्यवसाय", phone: "9028549690" },
 ];
 
 // 👇 Path + download name for the pre-made PDF
@@ -127,65 +128,78 @@ function ProfilePage() {
         onShare={() => setShareOpen(true)}
       />
 
-      <main>
-        {/* HERO */}
-        <section id="home" className="relative min-h-[560px] h-[88svh] w-full overflow-hidden md:min-h-[720px] md:h-[92svh]">
-          <img
-            src={heroImage}
-            alt="डॉ. प्रफुल तुळसकर क्रीम बंधगळा मध्ये"
-            width={1920}
-            height={1088}
-            fetchPriority="high"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover object-[68%_center]"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-hero-shade" />
-          <div className="pointer-events-none relative mx-auto flex h-full max-w-7xl items-end px-5 pb-14 sm:px-6 md:px-10 md:pb-24">
-            <div className="max-w-2xl animate-rise">
-              <p className="mb-4 font-mono text-[9px] uppercase tracking-[0.25em] text-gold sm:text-[10px] md:mb-5 md:text-[11px] md:tracking-[0.3em]">
-              
-              </p>
-              <h1 className="font-display text-5xl leading-[0.9] text-paper sm:text-6xl md:text-6xl md:leading-[0.88]">
-                डॉ. प्रफुल तुळसकर
-              </h1>
-              <p className="mt-5 max-w-xl font-display text-xl italic leading-snug text-paper/90 sm:text-2xl md:mt-6 md:text-3xl">
-                व्यवसायाने डॉक्टर, कुटुंबाने बांधलेले, आणि अर्थपूर्ण जीवनसाठी साथीदाराच्या शोधात.
-              </p>
-              <div className="pointer-events-auto mt-7 flex flex-wrap gap-2.5 md:mt-8 md:gap-3">
-                <a href="#about" className="action-primary text-base md:text-lg">
-                  बायोडाटा पहा <ChevronRight size={15} />
-                </a>
-                <a href="#gallery" className="action-ghost text-base md:text-lg">
-                  गॅलरी पहा
-                </a>
-                <a
-                  href={PDF_URL}
-                  download={PDF_FILENAME}
-                  className="action-ghost text-base md:text-lg"
-                >
-                  <Download size={14} /> बायोडाटा
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+  <main>
+  {/* HERO */}
+  <section id="home" className="relative min-h-[560px] h-[88svh] w-full overflow-hidden md:min-h-[720px] md:h-[92svh]">
+    <img
+      src={heroImage}
+      alt="डॉ. प्रफुल तुळसकर"
+      width={1920}
+      height={1088}
+      fetchPriority="high"
+      decoding="async"
+      className="absolute inset-0 h-full w-full object-cover object-[68%_center]"
+    />
+    <div className="pointer-events-none absolute inset-0 bg-hero-shade" />
+    
+    <div className="pointer-events-none relative mx-auto flex h-full max-w-7xl items-end px-5 pb-14 sm:px-6 md:px-10 md:pb-24">
+      <div className="max-w-2xl animate-rise">
+        
+        {/* Small kicker line */}
+        <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.35em] text-gold/90 sm:text-[11px] md:mb-6 md:text-xs">
+          विवाह बायोडाटा
+        </p>
+        
+        {/* Name — clean, elegant */}
+        <h1 className="font-calligraphy text-5xl leading-[1.2] text-paper drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)] sm:text-6xl md:text-7xl md:leading-[1.15]">
+          डॉ. प्रफुल तुळसकर
+        </h1>
+        
+        {/* Gold divider line */}
+        <div className="mt-5 h-px w-20 bg-gold/70 md:mt-6 md:w-24" />
+        
+        {/* Tagline — subdued, professional */}
+        <p className="mt-5 max-w-xl font-display text-lg italic leading-[1.5] text-paper/85 drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)] sm:text-xl md:mt-6 md:text-2xl md:leading-[1.5]">
+          जबाबदार मुलगा, सेवाभावी डॉक्टर, आणि कुटुंबाचा आधार.
+        </p>
+        
+        {/* CTAs */}
+        <div className="pointer-events-auto mt-8 flex flex-wrap gap-3 md:mt-10">
+          <a href="#about" className="action-primary text-sm md:text-base">
+            बायोडाटा पहा <ChevronRight size={15} />
+          </a>
+          <a href="#gallery" className="action-ghost text-sm md:text-base">
+            गॅलरी पहा
+          </a>
+          <a
+            href={PDF_URL}
+            download={PDF_FILENAME}
+            className="action-ghost text-sm md:text-base"
+          >
+            <Download size={14} /> बायोडाटा
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </section>
 
         {/* QUICK SUMMARY */}
         <section aria-label="त्वरित प्रोफाइल सारांश" className="border-y border-border bg-secondary/70">
           <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-4 gap-y-4 px-5 py-5 font-mono text-[16px] uppercase tracking-[0.12em] sm:grid-cols-3 sm:px-6 md:grid-cols-6 md:gap-y-5 md:px-10 md:py-6">
             {[
-  ["वय", "२८ वर्षे"],
-  ["उंची", "५'९\""],
-  ["शिक्षण", "B.H.M.S., D.Pharmacy"],
-  ["व्यवसाय", "स्वतःचा क्लिनिक"],
-  ["स्थान", "बसाड जि. बुऱ्हाणपूर"],
-  ["वैवाहिक स्थिती", "अविवाहित"],
-].map(([label, value]) => (
-  <div key={label} className="min-w-0 border-l border-border pl-3 md:pl-4">
-    <p className="text-muted-foreground">{label}</p>
-    <p className="mt-1 break-words leading-snug text-foreground">{value}</p>
-  </div>
-))}
+              ["वय", "२८ वर्षे"],
+              ["उंची", "५'९\""],
+              ["शिक्षण", "B.H.M.S., D.Pharmacy"],
+              ["व्यवसाय", "स्वतःचा क्लिनिक"],
+              ["स्थान", "बसाड जि. बुऱ्हाणपूर"],
+              ["वैवाहिक स्थिती", "अविवाहित"],
+            ].map(([label, value]) => (
+              <div key={label} className="min-w-0 border-l border-border pl-3 md:pl-4">
+                <p className="text-muted-foreground">{label}</p>
+                <p className="mt-1 break-words leading-snug text-foreground">{value}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -403,19 +417,14 @@ function ProfilePage() {
         {/* CONTACT */}
         <section id="contact" className="border-t border-border bg-secondary/60">
           <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-6 md:py-24">
-            <p className="section-kicker text-lg sm:text-xl md:text-2xl">
-              संपर्क
-            </p>
-
-            <h2 className="mt-4 font-display text-sm leading-snug text-primary sm:text-2xl md:mt-5 md:text-3xl md:leading-snug">
-              जर हे जुळत असेल,
-              <span className="italic">तर सुरुवात करूया</span>
-            </h2>
-
-            <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-4">
-              <strong className="block font-bold text-gray-900">तुळसकर कुटुंबाशी</strong>{" "}
-              आमच्या निर्धारित संपर्काद्वारे संपर्क साधा. वैयक्तिक माहिती खाजगीरित्या आणि आदराने सामायिक केली जाते.
-            </p>
+           <p className="section-kicker text-lg sm:text-xl md:text-2xl">
+  संपर्क
+</p>
+<p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base md:mt-4"> 
+  पसंत पडल्यास,
+  <strong className="block font-bold text-gray-900">तुळसकर कुटुंबाशी संपर्क साधा</strong>{" "}
+  आपल्या सोयीनुसार खाली दिलेल्या क्रमांकावर कॉल करा.
+</p>
 
             <div className="mx-auto mt-8 flex w-full max-w-md flex-col gap-3 md:mt-10 md:gap-4">
               {contacts.map((person) => (
@@ -424,6 +433,9 @@ function ProfilePage() {
                     {person.name}
                     <span className="ml-2 text-sm uppercase tracking-[0.1em] text-gold sm:text-base md:text-lg">
                       {person.relation}
+                    </span>
+                    <span className="block text-xs uppercase tracking-[0.1em] text-muted-foreground sm:text-sm md:text-base">
+                      {person.detail}
                     </span>
                   </span>
                   <a
